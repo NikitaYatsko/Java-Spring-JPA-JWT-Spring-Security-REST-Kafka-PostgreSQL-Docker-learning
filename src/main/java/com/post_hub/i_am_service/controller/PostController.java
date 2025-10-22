@@ -7,6 +7,7 @@ import com.post_hub.i_am_service.model.request.PostRequest;
 import com.post_hub.i_am_service.model.response.IamResponse;
 import com.post_hub.i_am_service.service.PostService;
 import com.post_hub.i_am_service.utils.ApiUtils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<IamResponse<PostDTO>> createPost(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<IamResponse<PostDTO>> createPost(@RequestBody @Valid PostRequest postRequest) {
         log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
         log.info("📩 Received post: title='{}', content='{}', likes={}",
                 postRequest.getTitle(), postRequest.getContent(), postRequest.getLikes());

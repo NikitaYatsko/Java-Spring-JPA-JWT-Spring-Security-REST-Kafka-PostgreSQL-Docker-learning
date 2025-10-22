@@ -1,14 +1,19 @@
 package com.post_hub.i_am_service.advice;
 
 import com.post_hub.i_am_service.model.constants.ApiConstants;
+import com.post_hub.i_am_service.model.exception.DataExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -24,6 +29,32 @@ public class CommonControllerAdvice {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    protected ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        logStackTrace(ex);
+
+        Map<String, String> errors = new HashMap<>();
+        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+            String ErrorMessage = error.getDefaultMessage();
+            errors.put("Error", ErrorMessage);
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errors);
+    }
+
+    @ExceptionHandler(DataExistsException.class)
+    @ResponseBody
+    protected ResponseEntity<String> handleDataExistsException(DataExistsException ex) {
+        logStackTrace(ex);
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+
 
     private void logStackTrace(Exception ex) {
         StringBuilder stackTrace = new StringBuilder();
