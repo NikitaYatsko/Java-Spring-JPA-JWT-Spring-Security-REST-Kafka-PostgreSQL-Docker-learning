@@ -4,6 +4,7 @@ package com.post_hub.i_am_service.controller;
 import com.post_hub.i_am_service.model.constants.ApiLogMessage;
 import com.post_hub.i_am_service.model.dto.Post.PostDTO;
 import com.post_hub.i_am_service.model.request.PostRequest;
+import com.post_hub.i_am_service.model.request.UpdatePostRequest;
 import com.post_hub.i_am_service.model.response.IamResponse;
 import com.post_hub.i_am_service.service.PostService;
 import com.post_hub.i_am_service.utils.ApiUtils;
@@ -33,6 +34,14 @@ public class PostController {
         log.info("📩 Received post: title='{}', content='{}', likes={}",
                 postRequest.getTitle(), postRequest.getContent(), postRequest.getLikes());
         IamResponse<PostDTO> response = postService.createPost(postRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<IamResponse<PostDTO>> updatePost(@PathVariable(name = "id") Integer postId,
+                                                           @RequestBody @Valid UpdatePostRequest postRequest) {
+        log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
+        IamResponse<PostDTO> response = postService.updatePost(postId, postRequest);
         return ResponseEntity.ok(response);
     }
 

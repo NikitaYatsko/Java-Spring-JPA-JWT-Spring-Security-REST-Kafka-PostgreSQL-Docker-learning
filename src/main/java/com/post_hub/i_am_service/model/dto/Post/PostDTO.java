@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -17,4 +18,5 @@ public class PostDTO implements Serializable {
     private String content;
     private Integer likes;
     private LocalDateTime created;
+    private LocalDateTime updated;
 }

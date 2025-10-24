@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.post_hub.i_am_service.model.dto.Post.PostDTO;
 import com.post_hub.i_am_service.model.entity.Post;
 import com.post_hub.i_am_service.model.request.PostRequest;
+import com.post_hub.i_am_service.model.request.UpdatePostRequest;
 import org.hibernate.type.descriptor.DateTimeUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, imports = {DateTimeUtils.class, ObjectMapper.class})
@@ -22,4 +24,9 @@ public interface PostMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "created", ignore = true)
     Post toEntity(PostRequest postRequest);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "created", ignore = true)
+    void updatePost(@MappingTarget Post post, UpdatePostRequest postRequest);
+
 }
