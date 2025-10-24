@@ -22,4 +22,6 @@ public class Post {
     private LocalDateTime updated = LocalDateTime.now();
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer likes = 0;
+    @Column(nullable = false)
+    private boolean deleted = false;
 }

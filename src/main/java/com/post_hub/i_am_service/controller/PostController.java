@@ -44,6 +44,12 @@ public class PostController {
         IamResponse<PostDTO> response = postService.updatePost(postId, postRequest);
         return ResponseEntity.ok(response);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> softDeletePost(@PathVariable(name = "id") Integer postId) {
+        log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
+        postService.softDeletePost(postId);
+        return ResponseEntity.ok().build();
+    }
 
 
 }
