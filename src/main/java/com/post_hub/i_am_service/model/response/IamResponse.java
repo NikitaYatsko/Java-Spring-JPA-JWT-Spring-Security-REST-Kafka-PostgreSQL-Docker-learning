@@ -15,7 +15,7 @@ public class IamResponse<P> implements Serializable {
     private P payload;
     private boolean success;
 
-    public static <P extends Serializable> IamResponse<P> createSuccesful(P payload) {
+    public static <P extends Serializable> IamResponse<P> createSuccessful(P payload) {
         return new IamResponse<>(StringUtils.EMPTY, payload, true);
     }
 }

@@ -2,6 +2,7 @@ package com.post_hub.i_am_service.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.post_hub.i_am_service.model.dto.Post.PostDTO;
+import com.post_hub.i_am_service.model.dto.Post.PostSearchDTO;
 import com.post_hub.i_am_service.model.entity.Post;
 import com.post_hub.i_am_service.model.request.PostRequest;
 import com.post_hub.i_am_service.model.request.UpdatePostRequest;
@@ -28,5 +29,8 @@ public interface PostMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "created", ignore = true)
     void updatePost(@MappingTarget Post post, UpdatePostRequest postRequest);
+
+    @Mapping(source = "deleted", target = "isDeleted")
+    PostSearchDTO toPostSearchDTO(Post post);
 
 }
