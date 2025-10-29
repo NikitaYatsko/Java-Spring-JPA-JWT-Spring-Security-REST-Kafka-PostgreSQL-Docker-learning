@@ -5,6 +5,7 @@ import com.post_hub.i_am_service.model.constants.ApiLogMessage;
 import com.post_hub.i_am_service.model.dto.Post.PostDTO;
 import com.post_hub.i_am_service.model.dto.Post.PostSearchDTO;
 import com.post_hub.i_am_service.model.request.PostRequest;
+import com.post_hub.i_am_service.model.request.PostSearchRequest;
 import com.post_hub.i_am_service.model.request.UpdatePostRequest;
 import com.post_hub.i_am_service.model.response.IamResponse;
 import com.post_hub.i_am_service.model.response.PaginationResponse;
@@ -64,6 +65,19 @@ public class PostController {
         log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
         Pageable pageable = PageRequest.of(page, limit);
         IamResponse<PaginationResponse<PostSearchDTO>> response = postService.findAllPosts(pageable);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<IamResponse<PaginationResponse<PostSearchDTO>>> searchPosts(
+            @RequestBody @Valid PostSearchRequest request,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "limit", defaultValue = "10") int limit
+    ) {
+        log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
+
+        Pageable pageable = PageRequest.of(page, limit);
+        IamResponse<PaginationResponse<PostSearchDTO>> response = postService.searchPosts(request, pageable);
         return ResponseEntity.ok(response);
     }
 
