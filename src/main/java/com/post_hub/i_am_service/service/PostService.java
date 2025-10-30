@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 public interface PostService {
     IamResponse<PostDTO> getById(@NotNull Integer postId);
 
-    IamResponse<PostDTO> createPost(@NotNull PostRequest post);
+    IamResponse<PostDTO> createPost(@NotNull Integer userId,@NotNull PostRequest post);
 
     IamResponse<PostDTO> updatePost(@NotNull Integer postId, @NotNull UpdatePostRequest updatePostRequest);
 

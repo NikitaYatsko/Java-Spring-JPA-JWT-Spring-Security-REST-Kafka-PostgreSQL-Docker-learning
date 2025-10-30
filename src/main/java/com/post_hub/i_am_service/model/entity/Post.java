@@ -31,4 +31,7 @@ public class Post {
     private Integer likes = 0;
     @Column(nullable = false)
     private boolean deleted = false;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

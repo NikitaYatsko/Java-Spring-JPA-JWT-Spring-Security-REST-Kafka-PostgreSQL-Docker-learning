@@ -14,18 +14,18 @@ create table users
 create table posts
 (
     id      bigserial primary key,
+    user_id integer not null,
     title   varchar(255) not null,
     content text         not null,
     created timestamp    not null default current_timestamp,
     updated timestamp    not null default current_timestamp,
     deleted boolean      not null default false,
     likes   integer      not null default 0,
+    foreign key (user_id) references users(id) on delete cascade,
     unique (title)
 );
 
-insert into posts(title, content, created, updated, deleted, likes)
-values ('first post', 'text for the first post', current_timestamp, current_timestamp, false, 10),
-       ('second post', 'text for the second post', current_timestamp, current_timestamp, false, 20);
+
 
 INSERT INTO users(username, password, email, created, updated, registration_status, last_login, deleted)
 VALUES ('nikita', 'password1', 'nikita@example.com', '2025-10-01 09:00:00', '2025-10-29 20:16:00', 'ACTIVE',
@@ -34,4 +34,6 @@ VALUES ('nikita', 'password1', 'nikita@example.com', '2025-10-01 09:00:00', '202
         '2025-10-29 20:15:00', false),
        ('devtest', 'devpass', 'dev@example.com', '2025-06-12 08:00:00', '2025-10-10 12:00:00', 'ACTIVE',
         '2025-08-12 18:00:00', true);
-
+insert into posts(user_id,title, content, created, updated, deleted, likes)
+values (1,'first post', 'text for the first post', current_timestamp, current_timestamp, false, 10),
+       (3,'second post', 'text for the second post', current_timestamp, current_timestamp, false, 20);

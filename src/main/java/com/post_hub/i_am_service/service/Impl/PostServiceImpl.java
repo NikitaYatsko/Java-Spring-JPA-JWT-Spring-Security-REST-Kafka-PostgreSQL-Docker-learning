@@ -5,6 +5,7 @@ import com.post_hub.i_am_service.model.constants.ApiErrorMessage;
 import com.post_hub.i_am_service.model.dto.Post.PostDTO;
 import com.post_hub.i_am_service.model.dto.Post.PostSearchDTO;
 import com.post_hub.i_am_service.model.entity.Post;
+import com.post_hub.i_am_service.model.entity.User;
 import com.post_hub.i_am_service.model.exception.DataExistsException;
 import com.post_hub.i_am_service.model.exception.NotFoundException;
 import com.post_hub.i_am_service.model.request.post.PostRequest;
@@ -13,6 +14,7 @@ import com.post_hub.i_am_service.model.request.post.UpdatePostRequest;
 import com.post_hub.i_am_service.model.response.IamResponse;
 import com.post_hub.i_am_service.model.response.PaginationResponse;
 import com.post_hub.i_am_service.repositories.PostRepository;
+import com.post_hub.i_am_service.repositories.UserRepository;
 import com.post_hub.i_am_service.repositories.criteria.PostSearchCriteria;
 import com.post_hub.i_am_service.service.PostService;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +31,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
     private final PostMapper postMapper;
 
     @Override
@@ -42,12 +45,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public IamResponse<PostDTO> createPost(@NotNull PostRequest postRequest) {
+    public IamResponse<PostDTO> createPost(@NotNull Integer userId, @NotNull PostRequest postRequest) {
         if (postRepository.existsByTitle(postRequest.getTitle())) {
             throw new DataExistsException(ApiErrorMessage
                     .POST_ALREADY_EXISTS.getMessage(postRequest.getTitle()));
         }
-        Post post = postMapper.toEntity(postRequest);
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException(ApiErrorMessage.POST_NOT_FOUND_BY_ID.getMessage(userId)));
+        Post post = postMapper.toEntity(postRequest, user);
         Post savedPost = postRepository.save(post);
         PostDTO postDto = postMapper.toPostDto(savedPost);
         return IamResponse.createSuccessful(postDto);

@@ -40,7 +40,9 @@ public class PostController {
         log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
         log.info("📩 Received post: title='{}', content='{}', likes={}",
                 postRequest.getTitle(), postRequest.getContent(), postRequest.getLikes());
-        IamResponse<PostDTO> response = postService.createPost(postRequest);
+        //TODO : replace with real user
+        int userId = 1;
+        IamResponse<PostDTO> response = postService.createPost(userId, postRequest);
         return ResponseEntity.ok(response);
     }
 
