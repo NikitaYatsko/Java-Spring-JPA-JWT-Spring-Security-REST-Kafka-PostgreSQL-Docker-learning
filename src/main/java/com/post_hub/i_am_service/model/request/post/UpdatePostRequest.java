@@ -1,4 +1,4 @@
-package com.post_hub.i_am_service.model.request;
+package com.post_hub.i_am_service.model.request.post;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

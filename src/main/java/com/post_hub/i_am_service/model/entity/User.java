@@ -35,11 +35,11 @@ public class User {
 
     @CreationTimestamp
     @Column(name = "created", nullable = false, updatable = false)
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
     @UpdateTimestamp
     @Column(name = "updated", nullable = false)
-    private LocalDateTime updated;
+    private LocalDateTime updated = LocalDateTime.now();
 
     @NotNull
     @Column(name = "registration_status", nullable = false, length = 20)

@@ -1,7 +1,7 @@
 package com.post_hub.i_am_service.repositories.criteria;
 
 import com.post_hub.i_am_service.model.entity.Post;
-import com.post_hub.i_am_service.model.request.PostSearchRequest;
+import com.post_hub.i_am_service.model.request.post.PostSearchRequest;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

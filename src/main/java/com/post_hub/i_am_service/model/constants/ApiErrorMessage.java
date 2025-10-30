@@ -10,7 +10,9 @@ import lombok.Getter;
 public enum ApiErrorMessage {
     POST_NOT_FOUND_BY_ID("Post with ID: %s not found"),
     POST_ALREADY_EXISTS("Post already exists"),
-    USER_NOT_FOUND_BY_ID("User with ID: %s not found");
+    USER_NOT_FOUND_BY_ID("User with ID: %s not found"),
+    USERNAME_ALREADY_EXISTS("Username: %s already Exists"),
+    EMAIL_ALREADY_EXISTS("E-mail: %s already Exists");
 
     private String message;
 
