@@ -1,0 +1,9 @@
+package com.post_hub.i_am_service.service;
+
+import com.post_hub.i_am_service.model.dto.User.UserDTO;
+import com.post_hub.i_am_service.model.response.IamResponse;
+import jakarta.validation.constraints.NotNull;
+
+public interface UserService {
+    IamResponse<UserDTO> getById(@NotNull Integer userId);
+}
