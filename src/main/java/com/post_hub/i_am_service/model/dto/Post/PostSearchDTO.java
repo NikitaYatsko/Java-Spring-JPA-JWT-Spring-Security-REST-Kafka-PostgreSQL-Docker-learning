@@ -17,4 +17,5 @@ public class PostSearchDTO implements Serializable {
     private Integer likes;
     private LocalDateTime created;
     private Boolean isDeleted;
+    private String createdBy;
 }

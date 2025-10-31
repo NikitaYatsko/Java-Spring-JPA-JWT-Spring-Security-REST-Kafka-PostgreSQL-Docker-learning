@@ -21,6 +21,7 @@ create table posts
     updated timestamp    not null default current_timestamp,
     deleted boolean      not null default false,
     likes   integer      not null default 0,
+    created_by VARCHAR(50),
     foreign key (user_id) references users(id) on delete cascade,
     unique (title)
 );

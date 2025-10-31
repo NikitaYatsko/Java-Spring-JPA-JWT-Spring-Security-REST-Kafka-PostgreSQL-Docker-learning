@@ -34,4 +34,6 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @Column(name = "created_by")
+    private String createdBy;
 }
