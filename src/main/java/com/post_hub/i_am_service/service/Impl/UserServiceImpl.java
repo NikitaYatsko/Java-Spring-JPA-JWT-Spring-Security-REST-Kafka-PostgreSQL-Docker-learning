@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public IamResponse<UserDTO> getById(@NotNull Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(
+        User user = userRepository.findByIdAndDeletedFalse(userId).orElseThrow(
                 () -> new NotFoundException(ApiErrorMessage.USER_NOT_FOUND_BY_ID.getMessage(userId))
         );
         UserDTO dto = userMapper.toDto(user);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public IamResponse<UserDTO> updateUser(@NotNull Integer userId, @NotNull UpdateUserRequest request) {
-        User user = userRepository.findById(userId).orElseThrow(
+        User user = userRepository.findByIdAndDeletedFalse(userId).orElseThrow(
                 () -> new NotFoundException(ApiErrorMessage.USER_NOT_FOUND_BY_ID.getMessage(userId))
         );
         userMapper.updateUser(user, request);
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void softDeleteUser(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(
+        User user = userRepository.findByIdAndDeletedFalse(userId).orElseThrow(
                 () -> new NotFoundException(ApiErrorMessage.USER_NOT_FOUND_BY_ID.getMessage(userId))
         );
         user.setDeleted(true);
