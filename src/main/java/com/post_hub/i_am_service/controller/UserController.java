@@ -42,4 +42,12 @@ public class UserController {
         IamResponse<UserDTO> response = userService.updateUser(id, updateUserRequest);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> softDeleteUserById(@PathVariable(name = "id") Integer id) {
+        log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
+        userService.softDeleteUser(id);
+        return ResponseEntity.ok().build();
+
+    }
 }
