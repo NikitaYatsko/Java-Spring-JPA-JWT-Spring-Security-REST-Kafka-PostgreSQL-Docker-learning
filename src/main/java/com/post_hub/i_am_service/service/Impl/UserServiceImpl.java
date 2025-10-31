@@ -7,12 +7,15 @@ import com.post_hub.i_am_service.model.entity.User;
 import com.post_hub.i_am_service.model.exception.DataExistsException;
 import com.post_hub.i_am_service.model.exception.NotFoundException;
 import com.post_hub.i_am_service.model.request.user.NewUserRequest;
+import com.post_hub.i_am_service.model.request.user.UpdateUserRequest;
 import com.post_hub.i_am_service.model.response.IamResponse;
 import com.post_hub.i_am_service.repositories.UserRepository;
 import com.post_hub.i_am_service.service.UserService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
@@ -44,5 +47,19 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userToSave);
         UserDTO response = userMapper.toDto(userToSave);
         return IamResponse.createSuccessful(response);
+    }
+
+    @Override
+    public IamResponse<UserDTO> updateUser(@NotNull Integer userId, @NotNull UpdateUserRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException(ApiErrorMessage.USER_NOT_FOUND_BY_ID.getMessage(userId))
+        );
+        userMapper.updateUser(user, request);
+        user.setUpdated(LocalDateTime.now());
+        userRepository.save(user);
+        UserDTO dto = userMapper.toDto(user);
+        return IamResponse.createSuccessful(dto);
+
+
     }
 }
