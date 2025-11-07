@@ -29,11 +29,11 @@ create table posts
 
 
 INSERT INTO users(username, password, email, created, updated, registration_status, last_login, deleted)
-VALUES ('nikita', 'password1', 'nikita@example.com', '2025-10-01 09:00:00', '2025-10-29 20:16:00', 'ACTIVE',
+VALUES ('nikita', '$2a$10$6dcdSJYZZUw7JUlSKVQaEOXZxWrTds2H/mlO9Yz1VmFuC9t36NOs.', 'nikita@example.com', '2025-10-01 09:00:00', '2025-10-29 20:16:00', 'ACTIVE',
         '2025-10-29 20:15:00', false),
-       ('maria', 'password2', 'maria@example.com', '2025-09-15 14:30:00', '2025-09-15 14:30:00', 'PENDING',
+       ('maria', '$2a$10$G.w65Z1P/dkfkMC.NxGI6uNxIONBw7ig6Vdfx.YETB5scfmFmCnHW', 'maria@example.com', '2025-09-15 14:30:00', '2025-09-15 14:30:00', 'PENDING',
         '2025-10-29 20:15:00', false),
-       ('devtest', 'devpass', 'dev@example.com', '2025-06-12 08:00:00', '2025-10-10 12:00:00', 'ACTIVE',
+       ('devtest', '$2a$10$co31RqlLT14z06Gs9gibceZn8wKOryC.ZiB2uxhHebswEjCxzahce', 'dev@example.com', '2025-06-12 08:00:00', '2025-10-10 12:00:00', 'ACTIVE',
         '2025-08-12 18:00:00', true);
 insert into posts(user_id,title, content, created, updated, deleted, likes)
 values (1,'first post', 'text for the first post', current_timestamp, current_timestamp, false, 10),

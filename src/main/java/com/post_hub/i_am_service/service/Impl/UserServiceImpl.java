@@ -13,6 +13,7 @@ import com.post_hub.i_am_service.repositories.UserRepository;
 import com.post_hub.i_am_service.service.UserService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public IamResponse<UserDTO> getById(@NotNull Integer userId) {
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User userToSave = userMapper.toEntity(request);
+        userToSave.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(userToSave);
         UserDTO response = userMapper.toDto(userToSave);
         return IamResponse.createSuccessful(response);
