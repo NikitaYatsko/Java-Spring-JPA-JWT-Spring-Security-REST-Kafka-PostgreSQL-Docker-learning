@@ -1,7 +1,6 @@
 package com.post_hub.i_am_service.model.dto.Post;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
